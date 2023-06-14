@@ -22,11 +22,10 @@ jobs:
       - name: Deploy to Ubuntu VM
         uses: appleboy/ssh-action@master
         with:
-          host: 18.140.68.25  # Replace with the IP or hostname of your VM
-          username: ubuntu  # Replace with the username to SSH into the VM
+          host: ${{ secrets.PRODUCTION_SSH_HOST }}
+          username: ${{ secrets.PRODUCTION_SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}  # Add the private key as a secret in the repository settings
 
           # Commands to run on the VM to deploy the app
           script: |
-            cd gh-action-workflows
-            git pull
+            cd ${{ secrets.PRODUCTION_TARGET_DIRECTORY }}
