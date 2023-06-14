@@ -29,3 +29,4 @@ jobs:
           # Commands to run on the VM to deploy the app
           script: |
             cd ${{ secrets.PRODUCTION_TARGET_DIRECTORY }}
+            git fetch main
