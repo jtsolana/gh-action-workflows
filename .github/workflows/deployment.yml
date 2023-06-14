@@ -1,0 +1,31 @@
+name: Deploy to Ubuntu VM
+
+on:
+  push:
+    branches:
+      - main  # Adjust this if you use a different branch name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Deploy to Ubuntu VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: 18.140.68.25  # Replace with the IP or hostname of your VM
+          username: json_x  # Replace with the username to SSH into the VM
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # Add the private key as a secret in the repository settings
+
+          # Commands to run on the VM to deploy the app
+          script: |
+            git pull
