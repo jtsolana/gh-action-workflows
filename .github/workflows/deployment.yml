@@ -28,4 +28,5 @@ jobs:
 
           # Commands to run on the VM to deploy the app
           script: |
-            pwd
+            cd gh-action-workflows
+            git pull
